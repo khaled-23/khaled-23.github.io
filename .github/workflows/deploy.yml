@@ -1,0 +1,56 @@
+# Builds the portfolio and publishes it to GitHub Pages every time you push to main.
+# One-time setup on GitHub: Settings → Pages → Source: "GitHub Actions".
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Build the site
+        run: |
+          # khaled-23.github.io lives at "/", any other repo name at "/<repo-name>/"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          if [[ "$REPO" == *.github.io ]]; then BASE="/"; else BASE="/$REPO/"; fi
+          npx ng build --base-href "$BASE"
+          OUT=dist/khaled-alkuhaily-portfolio/browser
+          # Opening a page link directly (e.g. /projects/yourfarm) still loads the app
+          cp "$OUT/index.html" "$OUT/404.html"
+          touch "$OUT/.nojekyll"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/khaled-alkuhaily-portfolio/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

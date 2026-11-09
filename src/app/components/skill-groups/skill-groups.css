@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: var(--space-1) var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.group-title {
+  color: var(--color-muted);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .group {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  /* Only the page content animates between routes (see styles.css) */
+  view-transition-name: page;
+}
+
+main:focus {
+  outline: none;
+}

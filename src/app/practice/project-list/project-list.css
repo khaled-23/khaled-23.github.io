@@ -1,0 +1,9 @@
+.project-list {
+  max-width: 480px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

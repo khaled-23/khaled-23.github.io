@@ -1,0 +1,11 @@
+<section class="project-list">
+  <app-section-title title="Projects" [subtitle]="summary" />
+
+  <div class="cards">
+    @for (project of projects; track project.id) {
+      <app-project-card [project]="project" />
+    } @empty {
+      <p>No projects yet.</p>
+    }
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<article class="project">
+  <h3>
+    {{ project().title }}
+    @if (project().featured) {
+      <span class="badge">Featured</span>
+    }
+  </h3>
+
+  <p class="meta">{{ project().engine }} · {{ project().platform }}</p>
+
+  <ul class="genres">
+    @for (genre of project().genres; track genre) {
+      <li>{{ genre }}</li>
+    }
+  </ul>
+
+  @if (project().videoUrl) {
+    <a [href]="project().videoUrl" target="_blank" rel="noopener">Watch video</a>
+  } @else {
+    <p class="note">No video yet.</p>
+  }
+
+  <a class="details-link" [routerLink]="['/projects', project().id]">View details →</a>
+</article>

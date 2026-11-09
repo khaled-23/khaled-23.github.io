@@ -1,0 +1,31 @@
+<article class="card">
+    <h2>{{ name() }}</h2>
+    <p class="role">{{ role() }}</p>
+
+    <div class="actions">
+        <button type="button" (click)="like()" [disabled]="likes() >= maxLikes">
+            Like ({{ likes() }})
+        </button>
+
+        <button type="button" (click)="toggleSkills()">
+            {{ showSkills() ? 'Hide skills' : 'Show skills' }}
+        </button>
+        <button type="button" (click)="resetLikes()" [disabled]="likes() === 0">
+            {{ 'reset likes'}}
+        </button>
+    </div>
+
+    @if (likes() >= maxLikes) {
+    <p class="note">Max likes reached.</p>
+    }
+
+    @if (showSkills()) {
+    <ul class="skills">
+        @for (skill of skills; track skill) {
+        <li>{{ skill }}</li>
+        }
+    </ul>
+    } @else {
+    <p class="note">Skills are hidden.</p>
+    }
+</article>

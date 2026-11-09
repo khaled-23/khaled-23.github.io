@@ -1,0 +1,14 @@
+<dl class="groups">
+  @for (group of groups(); track group.title) {
+    <div class="group">
+      <dt class="group-title">{{ group.title }}</dt>
+      <dd>
+        <ul class="skills" role="list">
+          @for (skill of group.skills; track skill) {
+            <li>{{ skill }}</li>
+          }
+        </ul>
+      </dd>
+    </div>
+  }
+</dl>

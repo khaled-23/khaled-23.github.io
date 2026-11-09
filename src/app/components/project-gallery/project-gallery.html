@@ -1,0 +1,61 @@
+@if (images().length) {
+  <!-- Main image: click to view full screen -->
+  <button type="button" class="main" (click)="openViewer()" aria-label="View image full screen">
+    <img
+      [src]="current()"
+      [alt]="altText(selected())"
+      loading="eager"
+      (error)="onError(current())"
+    />
+    @if (images().length > 1) {
+      <span class="counter">{{ selected() + 1 }} / {{ images().length }}</span>
+    }
+  </button>
+} @else {
+  <app-project-cover [project]="project()" variant="banner" loading="eager" />
+}
+
+@if (images().length > 1 || slots().length) {
+  <ul class="thumbs" role="list" aria-label="Project images">
+    @for (src of images(); track src; let i = $index) {
+      <li>
+        <button
+          type="button"
+          class="thumb"
+          [attr.aria-pressed]="i === selected()"
+          [attr.aria-label]="'Show ' + altText(i)"
+          (click)="show(i)"
+        >
+          <img [src]="src" alt="" loading="lazy" (error)="onError(src)" />
+        </button>
+      </li>
+    }
+    <!-- Only while running `ng serve`: where the next sub images go -->
+    @for (slot of slots(); track slot) {
+      <li class="slot" aria-hidden="true">
+        <span>Sub image<br /><code>{{ slot }}</code></span>
+      </li>
+    }
+  </ul>
+}
+
+<!-- Full-screen viewer. Esc closes it, ← → move between images. -->
+<dialog
+  #viewer
+  class="viewer"
+  aria-label="Image viewer"
+  (keydown)="onViewerKeydown($event)"
+  (click)="onViewerClick($event)"
+>
+  @if (images().length) {
+    <img class="viewer-image" [src]="current()" [alt]="altText(selected())" />
+    <div class="viewer-bar">
+      @if (images().length > 1) {
+        <button type="button" class="round" (click)="show(selected() - 1)" aria-label="Previous image">←</button>
+        <span class="viewer-count">{{ selected() + 1 }} / {{ images().length }}</span>
+        <button type="button" class="round" (click)="show(selected() + 1)" aria-label="Next image">→</button>
+      }
+      <button type="button" class="round close" (click)="closeViewer()" aria-label="Close viewer">✕</button>
+    </div>
+  }
+</dialog>

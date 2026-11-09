@@ -1,0 +1,59 @@
+<div class="page">
+  <section class="intro" aria-label="Introduction">
+    <h1 class="intro-title">
+      I’m Khaled, a Unity developer focused on gameplay programming.
+    </h1>
+    <p class="intro-text">
+      I build gameplay systems in C#, from player abilities and enemy behaviour to progression. I also
+      work on backends with Java, Spring Boot and MySQL.
+    </p>
+
+    <div class="actions-row intro-actions">
+      <a class="btn" routerLink="/projects">View my work</a>
+      <a class="btn btn--ghost" routerLink="/contact">Get in touch</a>
+    </div>
+
+    <p class="status">{{ profile.availability }}</p>
+
+    <ul class="inline-links intro-links" role="list">
+      @for (link of links; track link.label) {
+        <li>
+          <a class="icon-link" [href]="link.url" target="_blank" rel="noopener noreferrer">
+            <app-icon [name]="link.icon" [src]="link.iconSrc ?? ''" [invert]="link.invertIcon ?? false" />{{ link.label }}
+          </a>
+        </li>
+      }
+      <li>
+        <a class="icon-link" [href]="'mailto:' + profile.email"><app-icon name="mail-solid" />Email</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="work-heading" appReveal>
+    <div class="block-title">
+      <h2 id="work-heading">Selected work</h2>
+      <a routerLink="/projects">All work</a>
+    </div>
+    <app-project-list [projects]="featuredProjects" />
+  </section>
+
+  <section class="block" aria-labelledby="skills-heading" appReveal>
+    <div class="block-title">
+      <h2 id="skills-heading">Skills</h2>
+    </div>
+    <app-skill-groups [groups]="skillGroups" />
+  </section>
+
+  <section class="block hire" aria-labelledby="hire-heading" appReveal>
+    <h2 id="hire-heading">Hiring for a Unity role?</h2>
+    <p class="muted">
+      I’d like to hear about it. Email me at
+      <a [href]="'mailto:' + profile.email">{{ profile.email }}</a> or use the
+      <a routerLink="/contact">contact page</a>.
+    </p>
+    <div class="actions-row hire-actions">
+      <a class="btn" [href]="'mailto:' + profile.email">Email me</a>
+      <app-copy-button [text]="profile.email" label="Copy email address" idleText="Copy email" />
+    </div>
+  </section>
+</div>

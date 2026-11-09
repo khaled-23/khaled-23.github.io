@@ -1,0 +1,16 @@
+<article class="card">
+  <a class="card-link" [routerLink]="['/projects', project().id]">
+    <app-project-cover [project]="project()" />
+
+    <div class="card-body">
+      <h3 class="card-title">{{ project().title }}</h3>
+      <p class="card-tagline">{{ project().tagline }}</p>
+
+      <ul class="tag-list" role="list">
+        @for (tag of tags(); track tag) {
+          <li class="tag">{{ tag }}</li>
+        }
+      </ul>
+    </div>
+  </a>
+</article>

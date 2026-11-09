@@ -1,0 +1,15 @@
+@if (hasImage()) {
+  <img
+    class="image"
+    [src]="cover()"
+    [alt]="project().title + ' artwork'"
+    [attr.loading]="loading()"
+    (error)="failed.set(true)"
+  />
+} @else {
+  <!-- Title card. Hidden from screen readers because the title is already on the page. -->
+  <div class="placeholder" aria-hidden="true">
+    <span class="label">{{ project().engine ?? project().type }}</span>
+    <span class="title">{{ project().title }}</span>
+  </div>
+}

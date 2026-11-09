@@ -1,0 +1,138 @@
+:host {
+  display: block;
+}
+
+.list {
+  margin: 0;
+}
+
+.row {
+  --tint: var(--color-accent);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8.5rem 9rem 1rem;
+  grid-template-areas:
+    'title engine genre chevron'
+    'tagline tagline tagline tagline';
+  column-gap: var(--space-4);
+  align-items: baseline;
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+}
+
+/* Soft wash in the project's colour on hover, slightly wider than the column */
+.row::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(-1 * var(--space-3));
+  z-index: -1;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--tint) 9%, transparent);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.row:hover::before,
+.row:focus-visible::before {
+  opacity: 1;
+}
+
+.title {
+  grid-area: title;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 600;
+}
+
+/* Small square in the project's own colour */
+.swatch {
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 1px;
+  background: var(--tint);
+  transition: box-shadow 200ms ease;
+}
+
+.row:hover .swatch {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tint) 30%, transparent);
+}
+
+.tagline {
+  grid-area: tagline;
+  padding-left: calc(0.5rem + var(--space-3));
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.engine,
+.genre {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.engine {
+  grid-area: engine;
+}
+
+.genre {
+  grid-area: genre;
+}
+
+.chevron {
+  grid-area: chevron;
+  justify-self: end;
+  color: var(--color-muted);
+  transition: transform var(--duration) ease, color var(--duration) ease;
+}
+
+.row:hover {
+  color: var(--color-text);
+}
+
+.row:hover .title {
+  color: var(--color-accent);
+}
+
+.row:hover .chevron {
+  color: var(--color-accent);
+  transform: translateX(3px);
+}
+
+.empty {
+  padding-block: var(--space-4);
+  color: var(--color-muted);
+}
+
+/* Phones: title, then engine and genre on one line, then the tagline */
+@media (max-width: 600px) {
+  .row {
+    grid-template-columns: auto auto minmax(0, 1fr) 1rem;
+    grid-template-areas:
+      'title title title chevron'
+      'engine genre . .'
+      'tagline tagline tagline tagline';
+    row-gap: var(--space-1);
+    column-gap: var(--space-1);
+  }
+
+  .title {
+    margin-right: var(--space-3);
+  }
+
+  .engine,
+  .genre {
+    padding-left: calc(0.5rem + var(--space-3));
+  }
+
+  .genre {
+    padding-left: 0;
+  }
+
+  .engine::after {
+    content: ',';
+  }
+}

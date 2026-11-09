@@ -1,0 +1,44 @@
+<div class="page">
+  <header class="page-intro">
+    <h1>About</h1>
+    <p class="lead">Unity developer with a Computer Science background, focused on gameplay programming.</p>
+  </header>
+
+  <section class="block prose about-text" aria-label="Introduction">
+    <p>
+      I’m a game developer with a Computer Science background. Most of my work is in Unity and C#,
+      building gameplay systems and the mechanics players interact with.
+    </p>
+    <p>
+      On
+      <a routerLink="/projects/let-me-work-in-peace">Let Me Work in Peace</a>, a comedy
+      stress-simulation game in Unity, I was the lead programmer, handling gameplay programming,
+      game systems and the team’s Git workflow. I was also a gameplay programmer on
+      <a routerLink="/projects/kernel-panic">KERNEL PANIC</a>, an action-puzzle game in Unity
+      where you hack sealed droids from the inside.
+    </p>
+    <p>
+      I also have backend experience. I built
+      <a routerLink="/projects/yourfarm">YourFarm</a>, a web application, with Java, Spring Boot
+      and MySQL, and I can bring that experience to a game team alongside my Unity work.
+    </p>
+  </section>
+
+  <section class="block" aria-labelledby="skills-heading" appReveal>
+    <div class="block-title">
+      <h2 id="skills-heading">Skills</h2>
+    </div>
+    <app-skill-groups [groups]="skillGroups" />
+  </section>
+
+  <section class="block" aria-labelledby="looking-heading" appReveal>
+    <div class="block-title">
+      <h2 id="looking-heading">What I’m looking for</h2>
+    </div>
+    <p class="looking-text">
+      A Unity developer role where I can work on gameplay systems. I’m also open to roles that
+      combine Unity with backend work.
+    </p>
+    <a class="btn" routerLink="/contact">Get in touch</a>
+  </section>
+</div>

@@ -1,0 +1,17 @@
+<footer class="page">
+  <div class="footer">
+    <p>© {{ year }} {{ name }}</p>
+    <ul class="inline-links" role="list">
+      @for (link of links; track link.label) {
+        <li>
+          <a class="icon-link" [href]="link.url" target="_blank" rel="noopener noreferrer">
+            <app-icon [name]="link.icon" [src]="link.iconSrc ?? ''" [invert]="link.invertIcon ?? false" />{{ link.label }}
+          </a>
+        </li>
+      }
+      <li>
+        <a class="icon-link" [href]="'mailto:' + email"><app-icon name="mail-solid" />Email</a>
+      </li>
+    </ul>
+  </div>
+</footer>

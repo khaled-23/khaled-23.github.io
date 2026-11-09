@@ -1,0 +1,173 @@
+.intro-status {
+  margin-top: var(--space-5);
+}
+
+/* Email / GitHub / LinkedIn rows */
+.rows {
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+}
+
+.row-label {
+  color: var(--color-muted);
+}
+
+.row-value {
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.row:hover .row-value {
+  color: var(--color-accent);
+}
+
+/* Email row with a Copy button on the right */
+.has-action {
+  position: relative;
+}
+
+.has-action .row {
+  padding-right: 6rem;
+}
+
+.row-action {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ---------- Form ---------- */
+.form {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+label {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  line-height: 1.5;
+  transition: border-color var(--duration) ease;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 9rem;
+}
+
+input:hover,
+textarea:hover {
+  border-color: var(--color-muted);
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+input[aria-invalid='true'],
+textarea[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.error,
+.hint {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+}
+
+.hint {
+  color: var(--color-muted);
+}
+
+.hint.is-ok {
+  color: var(--color-accent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+.note,
+.sent,
+.draft {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.sent:empty {
+  display: none;
+}
+
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-strong);
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-accent);
+}
+
+/* Keyboard tip only for devices with a keyboard */
+@media (hover: none) {
+  .shortcut {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Label above the value so long addresses fit */
+  .row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .has-action .row {
+    padding-right: 5.5rem;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

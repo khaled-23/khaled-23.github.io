@@ -1,0 +1,44 @@
+<div class="page">
+  <header class="page-intro">
+    <h1>Work</h1>
+    <p class="lead">Games I’ve worked on in Unity, plus backend web development.</p>
+
+    <div class="filters" role="group" aria-label="Filter projects">
+      @for (option of filters; track option.value) {
+        <button
+          type="button"
+          class="chip"
+          [attr.aria-pressed]="filter() === option.value"
+          (click)="select(option.value)"
+        >
+          {{ option.label }}<span class="chip-count">{{ option.count }}</span>
+        </button>
+      }
+    </div>
+  </header>
+
+  <!-- Re-created on every filter change so the lists fade in again -->
+  @for (key of [filter()]; track key) {
+    <div class="results">
+      @if (games().length) {
+        <section class="block" aria-labelledby="games-heading">
+          <div class="block-title">
+            <h2 id="games-heading">Games</h2>
+            <span class="count">{{ games().length }}</span>
+          </div>
+          <app-project-list [projects]="games()" />
+        </section>
+      }
+
+      @if (other().length) {
+        <section class="block" aria-labelledby="web-heading" appReveal>
+          <div class="block-title">
+            <h2 id="web-heading">Web and backend</h2>
+            <span class="count">{{ other().length }}</span>
+          </div>
+          <app-project-list [projects]="other()" />
+        </section>
+      }
+    </div>
+  }
+</div>

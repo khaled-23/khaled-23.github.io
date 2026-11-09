@@ -1,0 +1,48 @@
+<section class="panel" aria-label="Developer profile">
+  <header class="bar">
+    <span class="toggle" aria-hidden="true"></span>
+    <span class="bar-title">Developer profile</span>
+    <span class="bar-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+  </header>
+
+  <div class="identity">
+    @if (photo()) {
+      <img class="avatar" [src]="photo()" [alt]="name()" width="64" height="64" />
+    } @else {
+      <span class="avatar avatar--initials" aria-hidden="true">{{ initials() }}</span>
+    }
+    <div>
+      <p class="name">{{ name() }}</p>
+      <p class="role">{{ role() }}</p>
+      @if (availability()) {
+        <p class="status"><span class="status-dot" aria-hidden="true"></span>{{ availability() }}</p>
+      }
+    </div>
+  </div>
+
+  <dl class="fields">
+    @for (fact of facts(); track fact.label) {
+      <div class="field">
+        <dt>{{ fact.label }}</dt>
+        <dd>
+          <ul class="chips" role="list">
+            @for (value of fact.values; track value) {
+              <li class="chip">{{ value }}</li>
+            }
+          </ul>
+        </dd>
+      </div>
+    }
+  </dl>
+
+  @if (links().length || email()) {
+    <footer class="links">
+      @for (link of links(); track link.label) {
+        <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+      }
+      @if (email()) {
+        <a [href]="'mailto:' + email()">Email</a>
+      }
+    </footer>
+  }
+</section>

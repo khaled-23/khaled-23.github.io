@@ -1,0 +1,116 @@
+<div class="page">
+  @if (project(); as project) {
+    <article [style.--tint]="project.tint ?? null">
+      <header class="page-intro">
+        <div class="intro-bar">
+          <a class="back-link" routerLink="/projects"><span aria-hidden="true">← </span>All work</a>
+          <app-copy-button [text]="shareUrl()" label="Copy link to this project" idleText="Copy link" />
+        </div>
+        <h1 class="title">
+          <span class="swatch" aria-hidden="true"></span>
+          {{ project.title }}
+        </h1>
+        <p class="lead">{{ project.tagline }}</p>
+
+        @if (project.links?.length) {
+          <div class="actions-row play-links">
+            @for (link of project.links; track link.url; let first = $first) {
+              <a [class]="first ? 'btn' : 'btn btn--ghost'" [href]="link.url" target="_blank" rel="noopener noreferrer">
+                {{ link.label }}<span aria-hidden="true">&nbsp;↗</span>
+              </a>
+            }
+          </div>
+        }
+      </header>
+
+      <!-- Main image with the sub images underneath (or a tinted title card until images are added) -->
+      <app-project-gallery class="cover" [project]="project" />
+
+      <dl class="facts">
+        @for (fact of facts(); track fact.label) {
+          <div class="fact">
+            <dt>{{ fact.label }}</dt>
+            <dd>{{ fact.value }}</dd>
+          </div>
+        }
+      </dl>
+
+      <section class="block" aria-labelledby="overview-heading" appReveal>
+        <div class="block-title">
+          <h2 id="overview-heading">Overview</h2>
+        </div>
+        <div class="prose body">
+          @for (paragraph of project.overview; track $index) {
+            <p>{{ paragraph }}</p>
+          }
+        </div>
+      </section>
+
+      @if (project.responsibilities?.length) {
+        <section class="block" aria-labelledby="responsibilities-heading" appReveal>
+          <div class="block-title">
+            <h2 id="responsibilities-heading">My responsibilities</h2>
+          </div>
+          <ul class="dash-list body">
+            @for (item of project.responsibilities; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      @if (project.focus?.length) {
+        <section class="block" aria-labelledby="focus-heading" appReveal>
+          <div class="block-title">
+            <h2 id="focus-heading">{{ focusHeading() }}</h2>
+          </div>
+          <ul class="dash-list body">
+            @for (item of project.focus; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        </section>
+      }
+
+      <!-- Store and download links are buttons at the top; the video gets its own section -->
+      @if (project.videoUrl) {
+        <section class="block" aria-labelledby="video-heading" appReveal>
+          <div class="block-title">
+            <h2 id="video-heading">Video</h2>
+          </div>
+          <p class="body">
+            <a [href]="project.videoUrl" target="_blank" rel="noopener noreferrer">Watch the video</a>
+          </p>
+        </section>
+      }
+
+      <nav class="pager" aria-label="More projects">
+        @if (neighbours().previous; as previous) {
+          <a class="pager-link" [routerLink]="['/projects', previous.id]">
+            <span class="pager-label"><span aria-hidden="true">← </span>Previous</span>
+            <span>{{ previous.title }}</span>
+          </a>
+        }
+        @if (neighbours().next; as next) {
+          <a class="pager-link pager-link--next" [routerLink]="['/projects', next.id]">
+            <span class="pager-label">Next<span aria-hidden="true"> →</span></span>
+            <span>{{ next.title }}</span>
+          </a>
+        }
+      </nav>
+      <p class="pager-hint">
+        Project {{ position().index }} of {{ position().total }}<span class="keys">
+          · Use <kbd>←</kbd>&nbsp;<kbd>→</kbd> to browse</span>
+      </p>
+    </article>
+  } @else {
+    <section class="page-intro">
+      <h1>Project not found</h1>
+      <p class="lead">There’s no project at “{{ id() }}”. Check the link, or browse all work instead.</p>
+      <p class="not-found-action actions-row">
+        <a class="btn" routerLink="/projects">See all work</a>
+        <a class="btn btn--ghost" routerLink="/">Go to the home page</a>
+      </p>
+    </section>
+  }
+</div>

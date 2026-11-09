@@ -1,0 +1,18 @@
+<ul class="list" role="list">
+  @for (row of rows(); track row.project.id) {
+    <li>
+      <a class="row" [routerLink]="['/projects', row.project.id]" [style.--tint]="row.project.tint ?? null">
+        <span class="title">
+          <span class="swatch" aria-hidden="true"></span>
+          {{ row.project.title }}
+        </span>
+        <span class="tagline">{{ row.project.tagline }}</span>
+        <span class="engine">{{ row.primary }}</span>
+        <span class="genre">{{ row.secondary }}</span>
+        <span class="chevron" aria-hidden="true">›</span>
+      </a>
+    </li>
+  } @empty {
+    <li class="empty">No projects here yet.</li>
+  }
+</ul>

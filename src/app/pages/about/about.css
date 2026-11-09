@@ -1,0 +1,9 @@
+.about-text {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+}
+
+.looking-text {
+  margin-block: var(--space-4) var(--space-5);
+  color: var(--color-muted);
+}
